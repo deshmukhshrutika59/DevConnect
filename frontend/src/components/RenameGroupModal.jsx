@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { X, Save, Edit3, Loader2 } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 export default function RenameGroupModal({ convoId, currentName, onClose, onDone }) {
   const { token } = useAuth();

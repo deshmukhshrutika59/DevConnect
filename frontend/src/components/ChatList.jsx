@@ -6,7 +6,7 @@ import { getAvatarUrl } from "../utils/avatar";
 
 const ChatList = ({ conversations = [], setActiveConversation, activeConversation }) => {
   const { user } = useAuth();
-  const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
   return (
     <div className="space-y-1 p-2">

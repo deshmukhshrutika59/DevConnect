@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!token) return;
 
-    const s = io("http://localhost:5000", {
+    const s = io(`${import.meta.env.VITE_BACKEND_URL}`, {
       auth: { token }
     });
 

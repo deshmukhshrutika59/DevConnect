@@ -21,7 +21,7 @@ const Messages = () => {
   const [selected, setSelected] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showGroupModal, setShowGroupModal] = useState(false);
-  const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
   // --- LOGIC STARTS HERE (UNCHANGED) ---
   const fetchConversations = async () => {

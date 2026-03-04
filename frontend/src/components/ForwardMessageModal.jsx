@@ -5,7 +5,7 @@ import { getSocket } from "../utils/socket";
 import { getAvatarUrl } from "../utils/avatar";
 import { X, Forward, Share2, ChevronRight, User, Loader2 } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const ForwardMessageModal = ({ messageId, postId, onClose, onForward }) => {
   const { user, token } = useAuth();

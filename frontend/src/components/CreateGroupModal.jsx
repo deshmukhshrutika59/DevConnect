@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { getAvatarUrl } from "../utils/avatar";
 import { X, Users, CheckCircle, Circle, Loader2 } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const CreateGroupModal = ({ onClose, onCreated }) => {
   const { token, user } = useAuth();

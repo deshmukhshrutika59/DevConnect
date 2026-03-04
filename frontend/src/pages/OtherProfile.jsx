@@ -13,7 +13,7 @@ import {
   Calendar 
 } from "lucide-react";
 import { getAvatarUrl } from "../utils/avatar";
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const OtherProfile = () => {
   // --- LOGIC STARTS HERE (UNCHANGED) ---
@@ -34,7 +34,7 @@ const OtherProfile = () => {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to load profile");
@@ -51,7 +51,7 @@ const OtherProfile = () => {
         setMutualConnections(mutual);
 
         // Fetch posts of the viewed profile
-        const postsRes = await fetch(`http://localhost:5000/api/posts/user/${id}`, {
+        const postsRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/user/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (postsRes.ok) {
@@ -72,7 +72,7 @@ const OtherProfile = () => {
     if (processing) return;
     setProcessing(id);
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${id}/connect`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${id}/connect`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -92,7 +92,7 @@ const OtherProfile = () => {
     if (processing) return;
     setProcessing(id);
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${id}/disconnect`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${id}/disconnect`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -269,7 +269,7 @@ const OtherProfile = () => {
                         {post.media?.length > 0 && (
                             <div className="border-t border-gray-100">
                             {post.media.map((m, idx) => {
-                                let src = typeof m === "string" ? `http://localhost:5000${m}` : `http://localhost:5000${m.url}`;
+                                let src = typeof m === "string" ? `${import.meta.env.VITE_BACKEND_URL}${m}` : `${import.meta.env.VITE_BACKEND_URL}${m.url}`;
                                 let type = typeof m === "string" ? (m.endsWith(".mp4") ? "video" : "image") : m.type;
                                 return type === "video" ? (
                                 <video key={idx} src={src} controls className="w-full max-h-[500px] bg-black" />

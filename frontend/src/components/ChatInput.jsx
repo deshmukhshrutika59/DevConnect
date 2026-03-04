@@ -11,7 +11,7 @@ const ChatInput = ({ conversation, onSend }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const typingRef = useRef(null);
-  const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
   // --- LOGIC STARTS HERE (UNCHANGED) ---
   const handleInput = (e) => {

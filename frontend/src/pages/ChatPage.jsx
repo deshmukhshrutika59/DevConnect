@@ -15,7 +15,7 @@ const ChatPage = () => {
   const [showNew, setShowNew] = useState(false);
 
   // Removed duplicate BACKEND declaration
-  const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
   const fetchConversations = async () => {
     try {

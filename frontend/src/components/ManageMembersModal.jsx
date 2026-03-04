@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { getAvatarUrl } from "../utils/avatar";
 import { X, UserPlus, UserMinus, Shield, Users } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const ManageMembersModal = ({ conversation, onClose, onDone }) => {
   const { token, user } = useAuth();

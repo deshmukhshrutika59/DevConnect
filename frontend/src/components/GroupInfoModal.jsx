@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { getAvatarUrl } from "../utils/avatar";
 import { X, Users, Shield, UserPlus, UserMinus, LogOut, Loader2 } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const GroupInfoModal = ({ group, onClose, refreshConversations }) => {
   const { user, token } = useAuth();

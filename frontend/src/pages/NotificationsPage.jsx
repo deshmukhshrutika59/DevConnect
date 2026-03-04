@@ -33,7 +33,7 @@ export default function NotificationsPage() {
 
   const load = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -52,7 +52,7 @@ export default function NotificationsPage() {
     // Optimistic UI update
     setNotifs(prev => prev.map(n => ({ ...n, read: true })));
     
-    await fetch("http://localhost:5000/api/notifications/mark-all-read", {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications/mark-all-read`, {
       method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -64,7 +64,7 @@ export default function NotificationsPage() {
     setNotifs(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
 
     try {
-      await fetch(`http://localhost:5000/api/notifications/${id}/read`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications/${id}/read`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });

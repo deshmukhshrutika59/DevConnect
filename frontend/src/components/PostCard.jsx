@@ -10,7 +10,7 @@ const PostCard = ({ post, currentUser }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState(post.comments || []);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
   const handleLike = async () => {
     try {

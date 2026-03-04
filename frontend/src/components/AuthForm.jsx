@@ -141,7 +141,7 @@ const AuthForm = ({ type, onSubmit }) => {
 
         <div className="mt-6">
             <a
-                href="http://localhost:5000/api/auth/google"
+                href=`${import.meta.env.VITE_API_BASE_URL}/auth/google`
                 className="flex items-center justify-center gap-3 w-full border border-gray-300 py-2.5 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all text-gray-700 font-medium"
             >
                 <Globe size={20} className="text-blue-500" />

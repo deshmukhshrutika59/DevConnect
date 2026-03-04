@@ -21,7 +21,7 @@ export default function Navbar() {
   // -----------------------------------------
   const loadNotifications = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -64,7 +64,7 @@ export default function Navbar() {
   // -----------------------------------------
   const handleReadOne = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/notifications/mark-read/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications/mark-read/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -84,7 +84,7 @@ export default function Navbar() {
   // -----------------------------------------
   const markAllRead = async () => {
     try {
-      await fetch("http://localhost:5000/api/notifications/mark-all-read", {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/notifications/mark-all-read`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });

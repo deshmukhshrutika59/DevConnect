@@ -5,7 +5,7 @@ import { UserCheck, UserMinus, UserPlus, Users, Loader2 } from "lucide-react";
 import { getAvatarUrl } from "../utils/avatar";
 import { useNavigate } from "react-router-dom";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const ConnectedProfiles = () => {
   const { user, token, refreshUser } = useAuth();
@@ -18,7 +18,7 @@ const ConnectedProfiles = () => {
     if (!user) return;
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/users/me/connections", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/me/connections`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to fetch connections");
@@ -40,7 +40,7 @@ const ConnectedProfiles = () => {
     if(processingId) return;
     setProcessingId(userId);
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${userId}/disconnect`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${userId}/disconnect`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });

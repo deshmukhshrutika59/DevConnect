@@ -3,7 +3,7 @@ import React from "react";
 import { getAvatarUrl } from "../utils/avatar";
 import { Github, ExternalLink, MapPin } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const ProfileSidebar = ({ user }) => {
   if (!user) return null;

@@ -22,7 +22,7 @@ import Skeleton from "@mui/material/Skeleton";
 import ForwardMessageModal from "../components/ForwardMessageModal";
 import { getAvatarUrl } from "../utils/avatar";
 
-const BACKEND = "http://localhost:5000"; // extracted for consistency
+const BACKEND = `${import.meta.env.VITE_BACKEND_URL}`; // extracted for consistency
 
 const Profile = () => {
   // --- LOGIC STARTS HERE (UNCHANGED) ---
@@ -64,7 +64,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/users/me", { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       setProfile(data);
       setFormData({
@@ -82,7 +82,7 @@ const Profile = () => {
     setLoadingPosts(true);
     try {
       const id = user?._id ?? profile?._id;
-      const res = await fetch(`http://localhost:5000/api/users/${id}/posts`, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${id}/posts`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       const postsWithUser = data.map(p => ({ ...p, user: p.user || profile }));
       setPosts(Array.isArray(postsWithUser) ? postsWithUser : []);
@@ -94,7 +94,7 @@ const Profile = () => {
     setLoadingComments(true);
     try {
       const id = user?._id ?? profile?._id;
-      const res = await fetch(`http://localhost:5000/api/users/${id}/comments`, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${id}/comments`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       setComments(Array.isArray(data) ? data : []);
     } catch (err) { console.error("Comments fetch error:", err); setComments([]); }
@@ -120,7 +120,7 @@ const Profile = () => {
     if (photoFile) form.append("photo", photoFile);
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/me", { method: "PUT", headers: { Authorization: `Bearer ${token}` }, body: form });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/me`, { method: "PUT", headers: { Authorization: `Bearer ${token}` }, body: form });
       const data = await res.json();
       setProfile(data);
       setEditing(false);
@@ -150,7 +150,7 @@ const Profile = () => {
       form.append("title", newPost.title);
       form.append("content", newPost.content);
       mediaFiles.forEach(m => form.append("media", m.file));
-      await fetch("http://localhost:5000/api/posts", { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: form });
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts`, { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: form });
       setNewPost({ title: "", content: "" });
       setMediaFiles([]);
       setMediaPreviews([]);
@@ -171,7 +171,7 @@ const Profile = () => {
 
   const saveEditPost = async (postId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(editingPostData),
@@ -196,7 +196,7 @@ const Profile = () => {
     const content = commentMap[postId];
     if (!content) return;
     try {
-      await fetch(`http://localhost:5000/api/posts/${postId}/comment`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ content }),
@@ -220,7 +220,7 @@ const Profile = () => {
 
   const saveEditComment = async (postId, commentId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}/comment/${commentId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ content: editingCommentText }),
@@ -247,7 +247,7 @@ const Profile = () => {
 
   const handleToggleLike = async (postId) => {
     try { 
-      await fetch(`http://localhost:5000/api/posts/${postId}/like`, { method: "POST", headers: { Authorization: `Bearer ${token}` } }); 
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}/like`, { method: "POST", headers: { Authorization: `Bearer ${token}` } }); 
       fetchUserPosts(); 
     } catch (err) { console.error(err); }
   };
@@ -259,7 +259,7 @@ const Profile = () => {
   const handleDeletePost = async (postId) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      await fetch(`http://localhost:5000/api/posts/${postId}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -270,7 +270,7 @@ const Profile = () => {
   const handleDeleteComment = async (postId, commentId) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
     try {
-      await fetch(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${postId}/comment/${commentId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

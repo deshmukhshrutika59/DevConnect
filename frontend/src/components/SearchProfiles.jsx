@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAvatarUrl } from "../utils/avatar";
 import { Search, UserPlus, UserMinus, User, Loader2 } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const SearchProfiles = () => {
   const { token, user, refreshUser } = useAuth();

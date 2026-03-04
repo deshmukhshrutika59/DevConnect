@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import { getSocket } from "../utils/socket";
 import { useAuth } from "../contexts/AuthContext";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 export default function NotificationBell({ onClick }) {
   const { token } = useAuth();

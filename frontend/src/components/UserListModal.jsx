@@ -3,7 +3,7 @@ import { X, User, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getAvatarUrl } from "../utils/avatar";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const UserListModal = ({ users = [], type, onClose }) => {
   const navigate = useNavigate();

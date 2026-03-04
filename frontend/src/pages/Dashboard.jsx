@@ -19,7 +19,7 @@ import ConnectedProfiles from "../components/ConnectedProfiles";
 import SharePostModal from "../components/SharePostModal";
 import { getAvatarUrl } from "../utils/avatar";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const Dashboard = () => {
   // --- LOGIC STARTS HERE (UNCHANGED) ---
@@ -46,7 +46,7 @@ const Dashboard = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/users/me", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to fetch profile");
@@ -75,7 +75,7 @@ const Dashboard = () => {
 
   const fetchFeed = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/posts/feed", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/feed`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) {
@@ -111,7 +111,7 @@ const Dashboard = () => {
       form.append("title", newPost.title);
       form.append("content", newPost.content);
       mediaFiles.forEach((m) => form.append("media", m.file));
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: form,
@@ -222,7 +222,7 @@ const Dashboard = () => {
     setProcessing(targetId);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/users/${targetId}/disconnect`,
+        `${import.meta.env.VITE_API_BASE_URL}/users/${targetId}/disconnect`,
         {
           method: "POST",
           headers: {
@@ -524,7 +524,7 @@ const Dashboard = () => {
                         {post.comments.map((c) => (
                           <div key={c._id} className="flex gap-2">
                             <img
-                              src={getAvatarUrl(c.user?.avatarUrl, c.user?.name, "http://localhost:5000")}
+                              src={getAvatarUrl(c.user?.avatarUrl, c.user?.name, `${import.meta.env.VITE_BACKEND_URL}`)}
                               alt="user"
                               className="w-8 h-8 rounded-full object-cover mt-1"
                             />

@@ -27,7 +27,7 @@ const Analytics = () => {
   const fetchInsights = async () => {
     setRefreshing(true);
     try {
-      const res = await fetch("http://localhost:5000/api/analytics/insights", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/analytics/insights`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const d = await res.json();
@@ -50,7 +50,7 @@ const Analytics = () => {
     setLoading(true);
     setError(null);
 
-    fetch("http://localhost:5000/api/analytics/profile", {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/analytics/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

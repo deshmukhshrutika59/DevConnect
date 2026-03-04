@@ -5,7 +5,7 @@ import { getSocket } from "../utils/socket";
 import { getAvatarUrl } from "../utils/avatar";
 import { X, Share2, Send, Search, User } from "lucide-react";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const SharePostModal = ({ post, onClose, onShared }) => {
   const { user, token } = useAuth();

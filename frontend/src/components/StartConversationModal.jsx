@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Search, User, MessageSquarePlus } from "lucide-react";
 import { getAvatarUrl } from "../utils/avatar";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL || `${import.meta.env.VITE_BACKEND_URL}`;
 
 const StartConversationModal = ({ isOpen, onClose, users = [], onSelectUser, onlineUsers = new Set() }) => {
   const [searchTerm, setSearchTerm] = useState('');
