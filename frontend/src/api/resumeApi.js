@@ -1,5 +1,5 @@
 // const BASE_URL = "http://localhost:8000"; // change if hosted
-const VITE_RESUME_API_URL="http://localhost:8000"
+const VITE_RESUME_API_URL = import.meta.env.VITE_RESUME_API_URL;
 
 
 export async function uploadResumeAndMatchJD(resumeFile, jdText, userId) {
