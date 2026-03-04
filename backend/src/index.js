@@ -35,8 +35,20 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const allowedOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(',').map(url => url.trim())
+  : ["http://localhost:3000"];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -66,8 +78,15 @@ app.use((req, res) => res.status(404).json({ message: "Route not found" }));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET","POST","PUT","DELETE"],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }
 });
@@ -161,12 +180,12 @@ io.on("connection", (socket) => {
     socket.to(`conversation:${conversationId}`).emit("stop_typing", { userId });
   });
 
-    // --- NOTIFICATION: join personal room ---
+  // --- NOTIFICATION: join personal room ---
   socket.join(`user:${userId}`);
   console.log(`🔔 Joined notification room user:${userId}`);
 
   // listen for client marking notifications read etc if you want
-  socket.on('notification:mark_read', ({ id }) => { /* optional */});
+  socket.on('notification:mark_read', ({ id }) => { /* optional */ });
 
   // SEND MESSAGE (text or media)
   socket.on("send_message", async (data, callback) => {
