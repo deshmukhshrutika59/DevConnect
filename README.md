@@ -136,37 +136,6 @@ Start UI:
 npm run dev
 ```
 
-# 🧠 API Endpoints
-
-## 📌 Node Backend
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/auth/register | Register user |
-| POST | /api/auth/login | Login |
-| GET | /api/posts/feed | User feed |
-| POST | /api/ai/chat | Chat with AI |
-
-## 📌 Python Resume AI
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /analyze-resume | Analyze PDF/DOCX |
-| POST | /match-job-title | Evaluate against job title |
-
-# 🧪 How to Test
-- Sign up
-- Upload resume
-- Chat with AI assistant
-- Send messages
-- Create posts
-
-# 🤝 Contributing
-Fork → Create branch → Commit → PR
-
-# 📃 License
-MIT License
-
 <p align="center">
 Built with ❤️ for Developers
 </p>
