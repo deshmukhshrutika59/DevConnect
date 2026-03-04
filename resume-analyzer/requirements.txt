@@ -5,3 +5,4 @@ google-generativeai
 pymongo
 pdfminer.six
 python-docx
+python-multipart
