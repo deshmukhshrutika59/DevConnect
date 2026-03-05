@@ -69,6 +69,7 @@ const SuggestedProfiles = () => {
   };
 
   // DISCONNECT user
+  // DISCONNECT user
   const handleDisconnect = async (userId) => {
     if (processing) return;
     setProcessing(userId);
@@ -96,7 +97,7 @@ const SuggestedProfiles = () => {
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 w-full">
       <div className="flex items-center gap-2 mb-4">
         <div className="p-1.5 bg-yellow-100 rounded-lg">
-           <Sparkles className="text-yellow-600" size={18} />
+          <Sparkles className="text-yellow-600" size={18} />
         </div>
         <h3 className="font-bold text-gray-800">Suggested for you</h3>
       </div>
@@ -122,8 +123,8 @@ const SuggestedProfiles = () => {
                     className="w-10 h-10 rounded-full object-cover border border-gray-200 group-hover:border-blue-200 transition-colors"
                   />
                   <div className="min-w-0">
-                     <p className="font-semibold text-gray-900 text-sm truncate">{u.name}</p>
-                     <p className="text-xs text-gray-500 truncate">{u.email || "Developer"}</p>
+                    <p className="font-semibold text-gray-900 text-sm truncate">{u.name}</p>
+                    <p className="text-xs text-gray-500 truncate">{u.email || "Developer"}</p>
                   </div>
                 </div>
 
@@ -144,9 +145,9 @@ const SuggestedProfiles = () => {
                     title="Connect"
                   >
                     {isProcessing ? (
-                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                     ) : (
-                        <UserPlus size={18} />
+                      <UserPlus size={18} />
                     )}
                   </button>
                 )}
@@ -155,8 +156,8 @@ const SuggestedProfiles = () => {
           })
         ) : (
           <div className="flex flex-col items-center justify-center py-6 text-gray-400">
-             <User size={32} className="opacity-20 mb-2"/>
-             <p className="text-sm">No suggestions right now.</p>
+            <User size={32} className="opacity-20 mb-2" />
+            <p className="text-sm">No suggestions right now.</p>
           </div>
         )}
       </div>
