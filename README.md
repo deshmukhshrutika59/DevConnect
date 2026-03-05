@@ -7,6 +7,8 @@ It combines features of:
 - **WhatsApp** (real-time chat)
 - **ChatGPT** (AI Assistant & Resume Analyzer)
 
+## Deplyment Link: dev-connect-bfw9koi2s-deshmukhshrutika59s-projects.vercel.app
+
 ## ✨ Features
 
 ### 🤖 AI Career Tools 
