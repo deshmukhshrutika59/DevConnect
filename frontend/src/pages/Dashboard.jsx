@@ -217,6 +217,29 @@ const Dashboard = () => {
   };
 
 
+  const handleConnect = async (targetId) => {
+    if (processing) return;
+    setProcessing(targetId);
+    try {
+      const res = await fetch(
+        `${BACKEND}/api/users/${targetId}/connect`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || "Connection failed");
+      await refreshUser();
+    } catch (err) {
+      console.error("Connect error:", err);
+    } finally {
+      setProcessing(null);
+    }
+  };
+
   const handleDisconnect = async (targetId) => {
     if (processing) return;
     setProcessing(targetId);
@@ -250,7 +273,7 @@ const Dashboard = () => {
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           {/* LEFT SIDEBAR - Profile (Hidden on mobile, block on Desktop) */}
           <div className="hidden lg:block lg:col-span-3 space-y-6">
             <div className="sticky top-24 space-y-6">
@@ -272,18 +295,18 @@ const Dashboard = () => {
                     </p>
                   </div>
                   <div className="mt-6 border-t pt-4 flex justify-around text-center">
-                     <div>
-                        <span className="block font-bold text-gray-800">{user.connections?.length || 0}</span>
-                        <span className="text-xs text-gray-500">Connections</span>
-                     </div>
-                     <div>
-                        <span className="block font-bold text-gray-800">0</span>
-                        <span className="text-xs text-gray-500">Posts</span>
-                     </div>
+                    <div>
+                      <span className="block font-bold text-gray-800">{user.connections?.length || 0}</span>
+                      <span className="text-xs text-gray-500">Connections</span>
+                    </div>
+                    <div>
+                      <span className="block font-bold text-gray-800">0</span>
+                      <span className="text-xs text-gray-500">Posts</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Copyright/Footer tiny text */}
               <div className="text-xs text-gray-400 text-center px-4">
                 &copy; 2024 DevConnect. All rights reserved.
@@ -293,30 +316,30 @@ const Dashboard = () => {
 
           {/* CENTER FEED - (Full width on mobile, center on Desktop) */}
           <div className="lg:col-span-6 space-y-6">
-            
+
             {/* Create Post Widget */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
               <div className="flex gap-4 mb-4">
-                 <img
-                    src={getAvatarUrl(user.avatarUrl, user.name, BACKEND)}
-                    alt="Me"
-                    className="w-10 h-10 rounded-full object-cover border border-gray-100"
+                <img
+                  src={getAvatarUrl(user.avatarUrl, user.name, BACKEND)}
+                  alt="Me"
+                  className="w-10 h-10 rounded-full object-cover border border-gray-100"
+                />
+                <div className="flex-1 space-y-2">
+                  <input
+                    type="text"
+                    placeholder="Post Title (Optional)"
+                    value={newPost.title}
+                    onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                    className="w-full bg-gray-50 border-none rounded-lg px-4 py-2 text-sm font-semibold focus:ring-2 focus:ring-blue-100 outline-none"
                   />
-                  <div className="flex-1 space-y-2">
-                     <input
-                      type="text"
-                      placeholder="Post Title (Optional)"
-                      value={newPost.title}
-                      onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                      className="w-full bg-gray-50 border-none rounded-lg px-4 py-2 text-sm font-semibold focus:ring-2 focus:ring-blue-100 outline-none"
-                    />
-                    <textarea
-                      placeholder={`What's on your mind, ${profile.name.split(' ')[0]}?`}
-                      value={newPost.content}
-                      onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                      className="w-full bg-transparent resize-none outline-none text-gray-700 text-base min-h-[60px]"
-                    />
-                  </div>
+                  <textarea
+                    placeholder={`What's on your mind, ${profile.name.split(' ')[0]}?`}
+                    value={newPost.content}
+                    onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                    className="w-full bg-transparent resize-none outline-none text-gray-700 text-base min-h-[60px]"
+                  />
+                </div>
               </div>
 
               {/* Media Previews */}
@@ -375,7 +398,7 @@ const Dashboard = () => {
                   {/* Hidden inputs */}
                   <input ref={imageInputRef} type="file" accept="image/*" multiple className="hidden" onChange={(e) => handleMediaChange(e, "image")} />
                   <input ref={videoInputRef} type="file" accept="video/*" multiple className="hidden" onChange={(e) => handleMediaChange(e, "video")} />
-                  
+
                   {mediaFiles.length > 0 && (
                     <button
                       onClick={() => { setMediaFiles([]); setMediaPreviews([]); }}
@@ -397,185 +420,184 @@ const Dashboard = () => {
 
             {/* AI Recommendations Banner (if exists) */}
             {recommendedFeed.length > 0 && (
-               <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl p-4 text-white shadow-md flex items-center justify-between">
-                  <div>
-                     <h3 className="font-bold text-lg">Recommended for you</h3>
-                     <p className="text-purple-100 text-sm">Based on your interests</p>
-                  </div>
-                  <div className="bg-white/20 p-2 rounded-lg">
-                     <Heart className="fill-white text-white" size={20} />
-                  </div>
-               </div>
+              <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl p-4 text-white shadow-md flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-lg">Recommended for you</h3>
+                  <p className="text-purple-100 text-sm">Based on your interests</p>
+                </div>
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <Heart className="fill-white text-white" size={20} />
+                </div>
+              </div>
             )}
 
             {/* FEED POSTS */}
             <div className="space-y-6">
               {[...feed, ...recommendedFeed].map((post) => {
-                 // De-duplicate logic if needed, simplifed here for styling
-                 return (
-                <div key={post._id} className="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow duration-300">
-                  {/* Post Header */}
-                  <div className="p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={getAvatarUrl(post.user?.avatarUrl, post.user?.name, BACKEND)}
-                        alt="avatar"
-                        className="w-10 h-10 rounded-full object-cover border border-gray-100"
-                      />
-                      <div>
-                        <h4 className="font-bold text-gray-900 text-sm">{post.user?.name || "Unknown"}</h4>
-                        <div className="text-xs text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</div>
+                // De-duplicate logic if needed, simplifed here for styling
+                return (
+                  <div key={post._id} className="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow duration-300">
+                    {/* Post Header */}
+                    <div className="p-4 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={getAvatarUrl(post.user?.avatarUrl, post.user?.name, BACKEND)}
+                          alt="avatar"
+                          className="w-10 h-10 rounded-full object-cover border border-gray-100"
+                        />
+                        <div>
+                          <h4 className="font-bold text-gray-900 text-sm">{post.user?.name || "Unknown"}</h4>
+                          <div className="text-xs text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</div>
+                        </div>
                       </div>
-                    </div>
-                    {/* Connect Button Logic */}
-                    {post.user?._id && post.user._id !== (user?._id || user?.id) && (
+                      {/* Connect Button Logic */}
+                      {post.user?._id && post.user._id !== (user?._id || user?.id) && (
                         <button
                           onClick={() =>
                             (user?.connections || []).includes(post.user?._id)
                               ? handleDisconnect(post.user._id)
                               : handleConnect(post.user._id) // Assuming handleConnect exists in scope or needs to be imported/defined
                           }
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
-                            (user?.connections || []).includes(post.user?._id)
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${(user?.connections || []).includes(post.user?._id)
                               ? "border-red-200 text-red-600 hover:bg-red-50"
                               : "border-blue-200 text-blue-600 hover:bg-blue-50"
-                          }`}
+                            }`}
                         >
                           {(user?.connections || []).includes(post.user?._id) ? "Disconnect" : "+ Connect"}
                         </button>
-                    )}
-                  </div>
-
-                  {/* Post Content */}
-                  <div className="px-4 pb-2">
-                    {post.title && <h3 className="font-bold text-lg text-gray-900 mb-1">{post.title}</h3>}
-                    {post.content && <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{post.content}</p>}
-                  </div>
-
-                  {/* Post Media */}
-                  {post.media?.length > 0 && (
-                    <div className="mt-2">
-                       {/* Simple grid for multiple images could go here, keeping stack for now */}
-                      {post.media.map((m, idx) => {
-                        const src = typeof m === "string" ? `${BACKEND}${m}` : `${BACKEND}${m.url}`;
-                        const type = typeof m === "string" ? (m.endsWith(".mp4") ? "video" : "image") : m.type;
-                        
-                        return type === "video" ? (
-                          <video key={idx} src={src} controls className="w-full max-h-[500px] bg-black" />
-                        ) : (
-                          <img key={idx} src={src} alt="post" className="w-full h-auto object-cover max-h-[600px]" />
-                        );
-                      })}
+                      )}
                     </div>
-                  )}
 
-                  {/* Post Stats */}
-                  <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+                    {/* Post Content */}
+                    <div className="px-4 pb-2">
+                      {post.title && <h3 className="font-bold text-lg text-gray-900 mb-1">{post.title}</h3>}
+                      {post.content && <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{post.content}</p>}
+                    </div>
+
+                    {/* Post Media */}
+                    {post.media?.length > 0 && (
+                      <div className="mt-2">
+                        {/* Simple grid for multiple images could go here, keeping stack for now */}
+                        {post.media.map((m, idx) => {
+                          const src = typeof m === "string" ? `${BACKEND}${m}` : `${BACKEND}${m.url}`;
+                          const type = typeof m === "string" ? (m.endsWith(".mp4") ? "video" : "image") : m.type;
+
+                          return type === "video" ? (
+                            <video key={idx} src={src} controls className="w-full max-h-[500px] bg-black" />
+                          ) : (
+                            <img key={idx} src={src} alt="post" className="w-full h-auto object-cover max-h-[600px]" />
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Post Stats */}
+                    <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
                       <div className="flex items-center gap-1 text-sm text-gray-500">
-                         <div className="flex -space-x-1">
-                            {/* Fake likes overlap visuals */}
-                            {post.likes?.length > 0 && <div className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center"><Heart size={8} className="fill-white text-white"/></div>}
-                         </div>
-                         <span>{post.likes?.length || 0} Likes</span>
+                        <div className="flex -space-x-1">
+                          {/* Fake likes overlap visuals */}
+                          {post.likes?.length > 0 && <div className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center"><Heart size={8} className="fill-white text-white" /></div>}
+                        </div>
+                        <span>{post.likes?.length || 0} Likes</span>
                       </div>
                       <div className="text-sm text-gray-500">
-                         {post.comments?.length || 0} Comments
+                        {post.comments?.length || 0} Comments
                       </div>
-                  </div>
+                    </div>
 
-                  {/* Action Buttons */}
-                  <div className="px-2 py-2 flex items-center justify-between">
-                    <button
-                      onClick={() => handleToggleLike(post._id)}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-colors ${
-                        (post.likes || []).includes(user?._id || user?.id)
-                          ? "text-red-500 bg-red-50"
-                          : "text-gray-600 hover:bg-gray-100"
-                      }`}
-                    >
-                      <Heart
-                        size={20}
-                        className={(post.likes || []).includes(user?._id || user?.id) ? "fill-current" : ""}
-                      />
-                      <span className="font-medium text-sm">Like</span>
-                    </button>
-
-                    <button
-                      onClick={() => document.getElementById(`comment-input-${post._id}`)?.focus()}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-                    >
-                      <MessageCircle size={20} />
-                      <span className="font-medium text-sm">Comment</span>
-                    </button>
-
-                    <button
-                      onClick={() => handleShare(post)}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-                    >
-                      <Share2 size={20} />
-                      <span className="font-medium text-sm">Share</span>
-                    </button>
-                  </div>
-
-                  {/* Comments Section */}
-                  <div className="px-4 pb-4 bg-gray-50/50">
-                    {post.comments?.length > 0 && (
-                      <div className="space-y-3 pt-3 mb-3">
-                        {post.comments.map((c) => (
-                          <div key={c._id} className="flex gap-2">
-                            <img
-                              src={getAvatarUrl(c.user?.avatarUrl, c.user?.name, `${import.meta.env.VITE_BACKEND_URL}`)}
-                              alt="user"
-                              className="w-8 h-8 rounded-full object-cover mt-1"
-                            />
-                            <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-2">
-                              <span className="font-bold text-xs text-gray-900 block">{c.user?.name || "Unknown"}</span>
-                              <span className="text-sm text-gray-700">{c.content}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Add Comment Input */}
-                    <div className="flex gap-2 mt-2">
-                      <img 
-                        src={getAvatarUrl(user.avatarUrl, user.name, BACKEND)} 
-                        className="w-8 h-8 rounded-full object-cover border border-gray-200" 
-                        alt="me"
-                      />
-                      <div className="flex-1 relative">
-                        <input
-                          id={`comment-input-${post._id}`}
-                          type="text"
-                          placeholder="Write a comment..."
-                          className="w-full border border-gray-300 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          value={commentMap[post._id] || ""}
-                          onChange={(e) => setCommentMap({ ...commentMap, [post._id]: e.target.value })}
-                          onKeyDown={(e) => e.key === "Enter" && handleAddComment(post._id)}
+                    {/* Action Buttons */}
+                    <div className="px-2 py-2 flex items-center justify-between">
+                      <button
+                        onClick={() => handleToggleLike(post._id)}
+                        className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-colors ${(post.likes || []).includes(user?._id || user?.id)
+                            ? "text-red-500 bg-red-50"
+                            : "text-gray-600 hover:bg-gray-100"
+                          }`}
+                      >
+                        <Heart
+                          size={20}
+                          className={(post.likes || []).includes(user?._id || user?.id) ? "fill-current" : ""}
                         />
-                        <button 
-                           onClick={() => handleAddComment(post._id)}
-                           className="absolute right-2 top-1.5 text-blue-600 hover:bg-blue-50 p-1 rounded-full transition"
-                        >
-                           <Send size={16} />
-                        </button>
+                        <span className="font-medium text-sm">Like</span>
+                      </button>
+
+                      <button
+                        onClick={() => document.getElementById(`comment-input-${post._id}`)?.focus()}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                      >
+                        <MessageCircle size={20} />
+                        <span className="font-medium text-sm">Comment</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleShare(post)}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                      >
+                        <Share2 size={20} />
+                        <span className="font-medium text-sm">Share</span>
+                      </button>
+                    </div>
+
+                    {/* Comments Section */}
+                    <div className="px-4 pb-4 bg-gray-50/50">
+                      {post.comments?.length > 0 && (
+                        <div className="space-y-3 pt-3 mb-3">
+                          {post.comments.map((c) => (
+                            <div key={c._id} className="flex gap-2">
+                              <img
+                                src={getAvatarUrl(c.user?.avatarUrl, c.user?.name, `${import.meta.env.VITE_BACKEND_URL}`)}
+                                alt="user"
+                                className="w-8 h-8 rounded-full object-cover mt-1"
+                              />
+                              <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-2">
+                                <span className="font-bold text-xs text-gray-900 block">{c.user?.name || "Unknown"}</span>
+                                <span className="text-sm text-gray-700">{c.content}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Add Comment Input */}
+                      <div className="flex gap-2 mt-2">
+                        <img
+                          src={getAvatarUrl(user.avatarUrl, user.name, BACKEND)}
+                          className="w-8 h-8 rounded-full object-cover border border-gray-200"
+                          alt="me"
+                        />
+                        <div className="flex-1 relative">
+                          <input
+                            id={`comment-input-${post._id}`}
+                            type="text"
+                            placeholder="Write a comment..."
+                            className="w-full border border-gray-300 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            value={commentMap[post._id] || ""}
+                            onChange={(e) => setCommentMap({ ...commentMap, [post._id]: e.target.value })}
+                            onKeyDown={(e) => e.key === "Enter" && handleAddComment(post._id)}
+                          />
+                          <button
+                            onClick={() => handleAddComment(post._id)}
+                            className="absolute right-2 top-1.5 text-blue-600 hover:bg-blue-50 p-1 rounded-full transition"
+                          >
+                            <Send size={16} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )})}
+                )
+              })}
             </div>
-            
+
           </div>
 
           {/* RIGHT SIDEBAR - Widgets (Hidden on mobile, block on Desktop) */}
           <div className="hidden lg:block lg:col-span-3 space-y-6">
-             <div className="sticky top-24 space-y-6">
-                <SearchProfiles />
-                <SuggestedProfiles />
-                <ConnectedProfiles />
-             </div>
+            <div className="sticky top-24 space-y-6">
+              <SearchProfiles />
+              <SuggestedProfiles />
+              <ConnectedProfiles />
+            </div>
           </div>
         </div>
       </div>
