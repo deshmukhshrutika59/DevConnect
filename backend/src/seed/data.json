@@ -1,0 +1,111 @@
+{
+    "users": [
+        {
+            "name": "Alex Chen",
+            "email": "alex.chen@example.com",
+            "password": "hashed-password",
+            "bio": "Full-stack developer passionate about building scalable web applications. Open source contributor.",
+            "githubUsername": "alexc-dev",
+            "techStack": [
+                "React",
+                "Node.js",
+                "TypeScript",
+                "MongoDB"
+            ],
+            "avatarUrl": "https://i.pravatar.cc/150?img=11"
+        },
+        {
+            "name": "Sarah Jenkins",
+            "email": "sarah.j@example.com",
+            "password": "hashed-password",
+            "bio": "Backend engineer focusing on distributed systems and cloud architecture. Coffee enthusiast ☕",
+            "githubUsername": "sarahj-cloud",
+            "techStack": [
+                "Python",
+                "Go",
+                "Docker",
+                "Kubernetes",
+                "AWS"
+            ],
+            "avatarUrl": "https://i.pravatar.cc/150?img=5"
+        },
+        {
+            "name": "David Martinez",
+            "email": "david.m@example.com",
+            "password": "hashed-password",
+            "bio": "Frontend wizard | UI/UX Designer | Building beautiful accessible interfaces on the web.",
+            "githubUsername": "daviduiux",
+            "techStack": [
+                "Vue.js",
+                "React",
+                "TailwindCSS",
+                "Figma"
+            ],
+            "avatarUrl": "https://i.pravatar.cc/150?img=8"
+        },
+        {
+            "name": "Priya Sharma",
+            "email": "priya.s@example.com",
+            "password": "hashed-password",
+            "bio": "Machine Learning Engineer. Working on NLP and GenAI models to solve real-world problems.",
+            "githubUsername": "priyaml",
+            "techStack": [
+                "Python",
+                "TensorFlow",
+                "PyTorch",
+                "SQL"
+            ],
+            "avatarUrl": "https://i.pravatar.cc/150?img=9"
+        }
+    ],
+    "posts": [
+        {
+            "authorIndex": 0,
+            "title": "Why I'm switching from Express to Fastify in 2025",
+            "content": "After building with Express for over 5 years, I recently started exploring Fastify for a new microservices project. The performance benchmarks are incredible, and the built-in schema validation using JSON Schema is a huge productivity booster. Have you made the switch yet?",
+            "media": [],
+            "comments": [
+                {
+                    "authorIndex": 1,
+                    "content": "I completely agree! The schema-based validation feature alone saves so much boilerplate code in our controllers."
+                }
+            ]
+        },
+        {
+            "authorIndex": 1,
+            "title": "Scaling Kubernetes Clusters on AWS EKS",
+            "content": "Just published a comprehensive guide on managing worker node groups effectively in EKS. One of the biggest lessons learned was how to properly configure Cluster Autoscaler so it integrates smoothly with AWS Auto Scaling Groups (ASGs). Link in my bio!",
+            "media": [],
+            "comments": [
+                {
+                    "authorIndex": 3,
+                    "content": "Great write-up! We were struggling with exactly this issue last week. Bookmarked!"
+                }
+            ]
+        },
+        {
+            "authorIndex": 2,
+            "title": "The importance of Accessibility in Modern Web Dev",
+            "content": "A friendly reminder that ARIA labels are not a replacement for semantic HTML! Use native <button> and <nav> tags wherever possible. Your screen-reader users will thank you. Let's build a more inclusive web.",
+            "media": [],
+            "comments": [
+                {
+                    "authorIndex": 0,
+                    "content": "Absolutely. It's so easy to overlook but makes such a massive difference."
+                }
+            ]
+        },
+        {
+            "authorIndex": 3,
+            "title": "Fine-tuning Llama 3 for coding tasks",
+            "content": "Spent the weekend fine-tuning a small Llama 3 model on a dataset of internal corporate code to help our devs write better unit tests. The results so far have been promising! The model understands our specific internal libraries much better than the base foundation model.",
+            "media": [],
+            "comments": [
+                {
+                    "authorIndex": 1,
+                    "content": "Would love to hear more about your hyperparameter setup for this!"
+                }
+            ]
+        }
+    ]
+}
