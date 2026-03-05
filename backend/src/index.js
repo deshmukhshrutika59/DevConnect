@@ -43,7 +43,14 @@ app.use(cors({
   origin: function (origin, callback) {
     // allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+
+    // Check if origin is in allowedOrigins explicitly, OR is a vercel preview deployment, OR is localhost
+    if (
+      allowedOrigins.includes(origin) ||
+      allowedOrigins.includes('*') ||
+      origin.endsWith('.vercel.app') ||
+      origin.startsWith('http://localhost:')
+    ) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -80,7 +87,12 @@ const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+      if (
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes('*') ||
+        origin.endsWith('.vercel.app') ||
+        origin.startsWith('http://localhost:')
+      ) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
