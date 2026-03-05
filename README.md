@@ -1,97 +1,169 @@
 # 🚀 DevConnect — AI Powered Developer Networking & Career Assistant
 
-DevConnect is a full-stack **MERN + FastAPI + Gemini** platform built for developers to network, collaborate, grow professionally, and get personalized AI career guidance.
+DevConnect is a **full-stack developer networking platform** that combines **professional networking, real-time messaging, and AI-powered career guidance** into one ecosystem.
 
-It combines features of:
-- **LinkedIn** (professional network)
-- **WhatsApp** (real-time chat)
-- **ChatGPT** (AI Assistant & Resume Analyzer)
+The platform integrates ideas from:
 
-## Deplyment Link: dev-connect-bfw9koi2s-deshmukhshrutika59s-projects.vercel.app
+* **LinkedIn** → Professional developer networking
+* **WhatsApp / Discord** → Real-time chat & collaboration
+* **AI Assistants** → Resume analysis & career coaching
 
-## ✨ Features
+It helps developers **connect, collaborate, and improve their career prospects using AI insights.**
 
-### 🤖 AI Career Tools 
-- AI Career Coach: Smart assistant for resume + GitHub analysis
-- Resume Analyzer: ATS-style evaluation
-- Streaming AI responses
-- Chat history stored for each user
+---
 
-### 🌐 Social Networking
-- Developer feed & posts
-- Likes, comments, shares
-- Connections & following
-- Smart search for developers by skills
+# 🌐 Live Demo
 
-### 💬 Real-Time Communication
-- 1-to-1 chat & group chat using Socket.io
-- Seen status, live typing, message edits
-- File and media support
+🔗 https://dev-connect-bfw9koi2s-deshmukhshrutika59s-projects.vercel.app
 
-### 📊 Analytics & Insights
-- Analytics dashboard
-- Profile growth
-- Post & engagement statistics
-- GitHub integration
+---
 
-## 🛠️ Tech Stack
+# ✨ Key Features
 
-### **Frontend**
-- React (Vite)
-- TailwindCSS
-- Framer Motion
-- Context API
-- socket.io-client
+## 🤖 AI Career Tools
 
-### **Backend**
-- Node.js + Express
-- MongoDB (Mongoose)
-- JWT Authentication
-- Socket.io
+* AI Career Coach for resume and GitHub guidance
+* ATS-style Resume Analyzer
+* Resume parsing using PyMuPDF
+* AI suggestions for skill improvement
+* Streaming AI responses
+* Chat history saved for each user
 
-### **AI Service**
-- Python + FastAPI
-- Google Gemini 1.5 Flash
-- PyMuPDF (PDF parsing)
+---
 
-## 📂 Project Structure
+## 🌐 Developer Social Network
+
+* Developer profiles with skills and bio
+* Create and share posts
+* Like, comment, and interact with posts
+* Follow and connect with other developers
+* Smart developer search based on skills
+
+---
+
+## 💬 Real-Time Communication
+
+* 1-to-1 chat
+* Group chat support
+* Typing indicators
+* Seen message status
+* Message editing
+* File and media sharing
+
+Built using **Socket.io for real-time communication.**
+
+---
+
+## 📊 Analytics Dashboard
+
+* Profile growth tracking
+* Post engagement analytics
+* Developer activity insights
+* GitHub integration
+
+---
+
+# 🧠 AI Architecture
+
+DevConnect integrates an **AI microservice built using FastAPI**.
+
+Capabilities include:
+
+* Resume parsing
+* ATS-style resume evaluation
+* GitHub profile analysis
+* Personalized career advice using **Google Gemini 1.5 Flash**
+
+---
+
+# 🏗️ System Architecture
+
+Frontend communicates with backend APIs and AI microservices.
+
+Frontend (React + Vite)
+⬇
+Node.js Backend (Express API)
+⬇
+MongoDB Database
+⬇
+FastAPI AI Microservice
+⬇
+Google Gemini 1.5 Flash
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* React (Vite)
+* TailwindCSS
+* Framer Motion
+* Context API
+* socket.io-client
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB (Mongoose)
+* JWT Authentication
+* Socket.io
+
+## AI Microservice
+
+* Python
+* FastAPI
+* Google Gemini 1.5 Flash
+* PyMuPDF (PDF parsing)
+
+---
+
+# 📂 Project Structure
 
 ```
-root/
-├── backend/            # Express API (Auth, Posts, Chat, Users)
-│   ├── models/
+DevConnect
+│
+├── backend/              # Node.js Express API
 │   ├── controllers/
+│   ├── models/
 │   ├── routes/
 │   └── server.js
 │
-├── resume-analyzer/    # Python FastAPI Microservice
+├── resume-analyzer/      # FastAPI AI microservice
 │   ├── main.py
 │   ├── job_matcher.py
 │   └── requirements.txt
 │
-└── frontend/           # React UI
+└── frontend/             # React application
     ├── src/
     │   ├── pages/
     │   ├── components/
     │   ├── contexts/
-    └── package.json
+    │   └── services/
 ```
 
-# 🔧 Setup & Installation
+---
 
-## 1️⃣ Clone the Repository
+# ⚙️ Installation & Setup
+
+## 1️⃣ Clone Repository
+
 ```bash
 git clone https://github.com/deshmukhshrutika59/DevConnect.git
-cd devconnect
+cd DevConnect
 ```
 
-## 2️⃣ Setup Backend (Node.js)
-```bash
+---
+
+# 2️⃣ Backend Setup
+
+```
 cd backend
 npm install
 ```
 
-Create `.env` in `/backend`:
+Create `.env` file inside `/backend`
 
 ```
 PORT=5000
@@ -99,45 +171,75 @@ MONGO_URI=<your_mongo_url>
 JWT_SECRET=<your_secret>
 ```
 
-Start backend:
-```bash
+Run backend server
+
+```
 npm start
 ```
 
-## 3️⃣ Setup AI Microservice (Python FastAPI)
-```bash
+---
+
+# 3️⃣ AI Microservice Setup
+
+```
 cd ../resume-analyzer
 pip install -r requirements.txt
 ```
 
-Create `.env`:
+Create `.env`
 
 ```
 GEMINI_API_KEY=<your_google_api_key>
 ```
 
-Run FastAPI:
-```bash
+Run FastAPI server
+
+```
 uvicorn main:app --reload --port 8000
 ```
 
-## 4️⃣ Setup Frontend (React + Vite)
-```bash
+---
+
+# 4️⃣ Frontend Setup
+
+```
 cd ../frontend
 npm install
 ```
 
-Create `.env`:
+Create `.env`
 
 ```
 VITE_BACKEND_URL=http://localhost:5000
 ```
 
-Start UI:
-```bash
+Start frontend
+
+```
 npm run dev
 ```
 
-<p align="center">
-Built with ❤️ for Developers
-</p>
+---
+
+# 📈 Use Cases
+
+DevConnect helps developers:
+
+* Build professional networks
+* Collaborate with other developers
+* Get AI-powered resume feedback
+* Improve career opportunities
+* Communicate and share ideas
+
+---
+
+---
+
+# 👩‍💻 Author
+
+**Shrutika Deshmukh**
+---
+
+# ⭐ Support
+
+If you like this project, please **star the repository** to support development.
