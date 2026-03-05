@@ -309,7 +309,7 @@ const Dashboard = () => {
 
               {/* Copyright/Footer tiny text */}
               <div className="text-xs text-gray-400 text-center px-4">
-                &copy; 2024 DevConnect. All rights reserved.
+                &copy; 2025 DevConnect. All rights reserved.
               </div>
             </div>
           </div>
@@ -459,8 +459,8 @@ const Dashboard = () => {
                               : handleConnect(post.user._id) // Assuming handleConnect exists in scope or needs to be imported/defined
                           }
                           className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${(user?.connections || []).includes(post.user?._id)
-                              ? "border-red-200 text-red-600 hover:bg-red-50"
-                              : "border-blue-200 text-blue-600 hover:bg-blue-50"
+                            ? "border-red-200 text-red-600 hover:bg-red-50"
+                            : "border-blue-200 text-blue-600 hover:bg-blue-50"
                             }`}
                         >
                           {(user?.connections || []).includes(post.user?._id) ? "Disconnect" : "+ Connect"}
@@ -510,8 +510,8 @@ const Dashboard = () => {
                       <button
                         onClick={() => handleToggleLike(post._id)}
                         className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-colors ${(post.likes || []).includes(user?._id || user?.id)
-                            ? "text-red-500 bg-red-50"
-                            : "text-gray-600 hover:bg-gray-100"
+                          ? "text-red-500 bg-red-50"
+                          : "text-gray-600 hover:bg-gray-100"
                           }`}
                       >
                         <Heart
